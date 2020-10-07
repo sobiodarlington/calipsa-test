@@ -15,4 +15,11 @@ These instructions will get you a copy of the project up and running on your loc
 Run `docker-compose up -d`
 
 Server runs on port localhost:3344
+
 Client runs on port localhost:8080
+
+
+### Test credentials
+
+- Email/Password: playerone@gmail.com, playerone
+- Email/Passwords: playertwo@gmail.com, playertwo
