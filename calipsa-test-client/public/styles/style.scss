@@ -1,0 +1,22 @@
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+
+
+#main {
+    margin: 20px auto;
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+h3 {
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  #main {
+    width: 100%;
+    padding: 0 20px;
+  }
+}

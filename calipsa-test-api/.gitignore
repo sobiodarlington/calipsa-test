@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+.idea
+log
+*.logs
+.env
+.vscode
+.vscode/*
+.npm-debug.log
+storage/uploads/*
+storage/logs/*
+storage/logs/errors.log
+views/mail-templates/index.html
+.vscode/launch.json

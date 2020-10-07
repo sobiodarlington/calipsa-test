@@ -1,0 +1,27 @@
+version: "3"
+services:
+  db:
+    image: postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  api:
+    build: ./calipsa-test-api
+    env_file:
+      - ./calipsa-test-api/deployment.env
+    ports:
+      - "3344:3000"
+      - "9090:9090"
+    links:
+      - "db"
+
+  client:
+    build: ./calipsa-test-client
+    volumes:
+      - "/tmp:/tmp"
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "8080:80"
