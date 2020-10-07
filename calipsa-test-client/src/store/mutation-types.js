@@ -12,6 +12,7 @@ export const SET_SESSION = 'setSession';
 export const UPDATE_SESSION = 'updateSession';
 export const SET_SESSION_ONLY = 'setSessionOnly';
 export const SET_GAME_DATA = 'setGameData';
+export const CLEAR_GAME_DATA = 'clearGameData';
 export const SET_CURRENT_SESSION = 'setCurrentSession';
 export const SET_QUESTION = 'setQuestion';
 export const SET_QUESTIONS = 'setQuestions';

@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import * as mutationTypes from '../../store/mutation-types';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: "NavBar",
@@ -37,8 +38,12 @@ export default {
   },
   methods: {
     ...mapActions('user', ['logoutUser']),
+    ...mapMutations('gamePlay', {
+      clearGameData: mutationTypes.CLEAR_GAME_DATA,
+    }),
     logout() {
       this.logoutUser();
+      this.clearGameData();
 
       this.$parent.loginModal();
     }

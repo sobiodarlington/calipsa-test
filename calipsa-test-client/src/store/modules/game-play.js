@@ -10,6 +10,10 @@ export default {
     },
   },
   mutations: {
+    [type.CLEAR_GAME_DATA](state) {
+      state.currentSession = {};
+      state.sessions = {};
+    },
     [type.SET_SESSION](state, data) {
       state.sessions[data.id] = data;
 
@@ -24,7 +28,9 @@ export default {
       }
     },
     [type.SET_QUESTION](state, data) {
-      state.currentSession.questions.push(data);
+      const index = state.currentSession.questions.length;
+
+      Vue.set(state.currentSession.questions, index, data);
       state.currentSession.questionCount = state.currentSession.questions.length;
     },
     [type.SET_QUESTIONS](state, data) {
