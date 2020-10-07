@@ -100,7 +100,7 @@ class GameProcessor extends BaseProcessor {
         });
 
         // Return session if theres an active one
-        if (session) return session;
+        if (session) return session.get({ plain: true });
 
         const [newSession, newSessionErr] = await to(
             this.GameSession.create({

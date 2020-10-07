@@ -26,7 +26,7 @@ module.exports = {
 
             io.emit(MESSAGE_TYPES.GAME_SESSION, newSession);
 
-            newSession.players = {
+            const players = {
                 hostPlayer: users.find(u => u.id === newSession.hostPlayerId),
                 secondPlayer: users.find(u => u.id === newSession.secondPlayerId),
             };
@@ -35,7 +35,10 @@ module.exports = {
                 responseCode: 1,
                 statusCode: 200,
                 data: {
-                    session: newSession,
+                    session: {
+                        ...newSession,
+                        players,
+                    },
                     questions: questions.questions,
                     questionCount: questions.total,
                 },

@@ -7,12 +7,19 @@ export default {
   state: {
     sessions: {},
     currentSession: {
+      session: {},
+      questions: [],
+      questionCount: 0,
     },
   },
   mutations: {
     [type.CLEAR_GAME_DATA](state) {
-      state.currentSession = {};
       state.sessions = {};
+      state.currentSession = {
+        session: {},
+        questions: [],
+        questionCount: 0,
+      };
     },
     [type.SET_SESSION](state, data) {
       state.sessions[data.id] = data;
@@ -28,10 +35,12 @@ export default {
       }
     },
     [type.SET_QUESTION](state, data) {
-      const index = state.currentSession.questions.length;
-
-      Vue.set(state.currentSession.questions, index, data);
-      state.currentSession.questionCount = state.currentSession.questions.length;
+      Vue.set(state.currentSession, 'questions', [
+        ...state.currentSession.questions,
+        data,
+      ]);
+      state.currentSession.questionCount =
+        state.currentSession.questions.length;
     },
     [type.SET_QUESTIONS](state, data) {
       state.currentSession.questions = data;
@@ -57,7 +66,7 @@ export default {
   },
   actions: {
     startGame({ commit }, payload) {
-      return HTTP.post('game-play/start', payload).then((response) => {
+      return HTTP.post('game-play/start', payload).then(response => {
         commit(type.SET_SESSION, response.data);
 
         return response;
@@ -65,7 +74,7 @@ export default {
     },
 
     askQuestion({ commit }, payload) {
-      return HTTP.post('game-play/ask-question', payload).then((response) => {
+      return HTTP.post('game-play/ask-question', payload).then(response => {
         commit(type.SET_QUESTION, response.data);
 
         return response;
@@ -73,16 +82,15 @@ export default {
     },
 
     respond({ commit }, payload) {
-      return HTTP.put('game-play/respond', payload)
-        .then((response) => {
-          commit(type.SET_RESPONSE, response.data);
+      return HTTP.put('game-play/respond', payload).then(response => {
+        commit(type.SET_RESPONSE, response.data);
 
-          return response;
-        });
+        return response;
+      });
     },
 
     acceptRejectReq({ commit }, payload) {
-      return HTTP.put('game-play/request', payload).then((response) => {
+      return HTTP.put('game-play/request', payload).then(response => {
         commit(type.SET_SESSION, response.data);
 
         return response;
@@ -90,7 +98,7 @@ export default {
     },
 
     getQuestions({ commit }, sessionId) {
-      return HTTP.get(`game-play/${sessionId}/questions`).then((response) => {
+      return HTTP.get(`game-play/${sessionId}/questions`).then(response => {
         commit(type.SET_QUESTIONS, response.data);
 
         return response;
@@ -98,12 +106,11 @@ export default {
     },
 
     getGameData({ commit }, sessionId) {
-      return HTTP.get(`game-play/${sessionId}/game-data`).then((response) => {
+      return HTTP.get(`game-play/${sessionId}/game-data`).then(response => {
         commit(type.SET_GAME_DATA, response.data);
 
         return response;
       });
     },
-
   },
 };
